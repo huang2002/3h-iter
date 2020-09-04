@@ -15,12 +15,12 @@ export const map = <T, U>(
 ) => new Map(iterable, mapper);
 /** dts2md break */
 export class Map<T, U> implements Iterable<U>{
-    /** dts2md break */
+
     constructor(
         readonly iterable: Iterable<T>,
         readonly mapper: Mapper<T, U>,
     ) { }
-    /** dts2md break */
+
     [Symbol.iterator](): Iterator<U> {
         const { mapper } = this;
         const iterator = this.iterable[Symbol.iterator]();

@@ -9,13 +9,13 @@
 export const chain = <T>(...iterables: Iterable<T>[]) => new Chain(...iterables);
 /** dts2md break */
 export class Chain<T> implements Iterable<T> {
-    /** dts2md break */
+
     constructor(...iterables: Iterable<T>[]) {
         this.iterables = iterables;
     }
-    /** dts2md break */
+
     readonly iterables: Iterable<T>[];
-    /** dts2md break */
+
     [Symbol.iterator](): Iterator<T> {
         const candidates = this.iterables.slice();
         if (!candidates.length) { // nothing to iterate

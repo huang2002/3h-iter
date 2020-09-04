@@ -15,12 +15,12 @@ export const filter = <T>(
 ) => new Filter(iterable, predictor);
 /** dts2md break */
 export class Filter<T> implements Iterable<T> {
-    /** dts2md break */
+
     constructor(
         readonly iterable: Iterable<T>,
         readonly predictor: FilterPredictor<T>,
     ) { }
-    /** dts2md break */
+
     [Symbol.iterator](): Iterator<T> {
         const { predictor } = this;
         const iterator = this.iterable[Symbol.iterator]();

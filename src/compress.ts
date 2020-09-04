@@ -13,12 +13,12 @@ export const compress = <T>(
 ) => new Compress(data, selectors);
 /** dts2md break */
 export class Compress<T> implements Iterable<T> {
-    /** dts2md break */
+
     constructor(
         readonly data: Iterable<T>,
         readonly selectors: Iterable<boolean>,
     ) { }
-    /** dts2md break */
+
     [Symbol.iterator](): Iterator<T> {
         const { data, selectors } = this;
         const dataIterator = data[Symbol.iterator]();

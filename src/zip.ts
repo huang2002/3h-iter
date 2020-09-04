@@ -13,12 +13,12 @@ export const zip = <T, U>(
 ) => new Zip(a, b);
 /** dts2md break */
 export class Zip<T, U> implements Iterable<readonly [T, U]> {
-    /** dts2md break */
+
     constructor(
         readonly a: Iterable<T>,
         readonly b: Iterable<U>,
     ) { }
-    /** dts2md break */
+
     [Symbol.iterator](): Iterator<readonly [T, U]> {
         const { a, b } = this;
         const aIterator = a[Symbol.iterator]();

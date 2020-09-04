@@ -15,13 +15,13 @@ export const zipLongest = <T>(
 ) => new ZipLongest(a, b, fillValue);
 /** dts2md break */
 export class ZipLongest<T> implements Iterable<readonly [T, T]> {
-    /** dts2md break */
+
     constructor(
         readonly a: Iterable<T>,
         readonly b: Iterable<T>,
         readonly fillValue: T,
     ) { }
-    /** dts2md break */
+
     [Symbol.iterator](): Iterator<readonly [T, T]> {
         const { a, b, fillValue } = this;
         const aIterator = a[Symbol.iterator]();
