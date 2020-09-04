@@ -1,0 +1,39 @@
+{
+  "name": "3h-iter",
+  "version": "0.1.0",
+  "description": "An iteration lib.",
+  "module": "./dist/3h-iter.min.js",
+  "main": "./dist/3h-iter.umd.min.js",
+  "types": "./index.d.ts",
+  "author": "3h",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "tsc",
+    "build": "rollup -c",
+    "postbuild": "terser dist/3h-iter.js --config-file terser.json --module -o dist/3h-iter.min.js && terser dist/3h-iter.umd.js --config-file terser.json -o dist/3h-iter.umd.min.js && node stat",
+    "docs": "dts2md \"**\" \"!index.d.ts\" -i ./types -o ./docs -l -I Home.md",
+    "test": "node test/index"
+  },
+  "repository": "huang2002/3h-iter",
+  "keywords": [
+    "iter",
+    "iteration",
+    "iterator",
+    "3h"
+  ],
+  "files": [
+    "dist",
+    "types",
+    "index.d.ts"
+  ],
+  "devDependencies": {
+    "3h-test": "^0.2.0",
+    "@babel/core": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@rollup/plugin-babel": "^5.2.0",
+    "dts2md": "^0.4.0",
+    "rollup": "^2.26.9",
+    "terser": "^5.2.1",
+    "typescript": "^4.0.2"
+  }
+}
