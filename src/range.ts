@@ -17,7 +17,12 @@ export class Range implements Iterable<number> {
     constructor(stop: number); // [0]
     constructor(start: number, stop: number, step?: number); // [1]
     constructor(a: number, b?: number, c?: number) {
+
         if (b !== undefined) { // [1]
+
+            if (!Number.isFinite(a)) {
+                throw new RangeError('invalid start');
+            }
 
             this.start = a;
             this.stop = b;
@@ -38,6 +43,7 @@ export class Range implements Iterable<number> {
             this.stop = a;
             this.step = a > 1 ? 1 : -1;
         }
+
     }
 
     readonly start: number;
