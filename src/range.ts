@@ -14,6 +14,7 @@ type RangeFactory =
 export const range: RangeFactory = (a, b, c) => new Range(a, b, c);
 /** dts2md break */
 export class Range implements Iterable<number> {
+
     constructor(stop: number); // [0]
     constructor(start: number, stop: number, step?: number); // [1]
     constructor(a: number, b?: number, c?: number) {
