@@ -265,4 +265,36 @@ T.test(null, {
         );
     },
 
+    iter2fn(context) {
+        const { iter2fn } = Iter;
+        const fn = iter2fn([0, 1, 2], null);
+        context.assertStrictEqual(fn(), 0);
+        context.assertStrictEqual(fn(), 1);
+        context.assertStrictEqual(fn(), 2);
+        context.assertStrictEqual(fn(), null);
+        context.assertStrictEqual(fn(), null);
+    },
+
+    fn2iter(context) {
+
+        const { fn2iter } = Iter;
+
+        const stop = 3;
+        let i = 0;
+
+        const fn = () => (
+            i < stop
+                ? i++
+                : null
+        );
+
+        const iter = fn2iter(fn, null);
+
+        context.assertShallowEqual(
+            [...iter],
+            [0, 1, 2]
+        );
+
+    },
+
 });
