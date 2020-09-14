@@ -8,3 +8,4 @@ export * from './map';
 export * from './slice';
 export * from './iter2fn';
 export * from './fn2iter';
+export * from './repeat';
