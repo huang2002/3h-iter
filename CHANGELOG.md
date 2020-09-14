@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+- Add `repeat`
+
 ## 0.3.0
 
 - Add `iter2fn`
