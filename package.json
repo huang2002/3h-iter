@@ -27,13 +27,13 @@
     "index.d.ts"
   ],
   "devDependencies": {
-    "3h-test": "^0.2.0",
     "@babel/core": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@rollup/plugin-babel": "^5.2.0",
+    "3h-test": "^0.2.0",
     "dts2md": "^0.4.0",
     "rollup": "^2.26.9",
     "terser": "^5.2.1",
-    "typescript": "^4.0.2"
+    "typescript": "^5.2.2"
   }
 }
