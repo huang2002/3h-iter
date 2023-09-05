@@ -12,8 +12,9 @@
     "build": "rollup -c",
     "postbuild": "terser dist/3h-iter.js --config-file terser.json --module -o dist/3h-iter.min.js && terser dist/3h-iter.umd.js --config-file terser.json -o dist/3h-iter.umd.min.js && node stat",
     "docs": "dts2md \"**\" \"!index.d.ts\" -i ./types -o ./docs -l -I Home.md",
-    "test": "node ./test/index.cjs",
-    "type-check-test": "tsc -p tsconfig.test.json"
+    "test-only": "node ./test/index.cjs",
+    "type-check-test": "tsc -p tsconfig.test.json",
+    "test": "run-s type-check-test test-only"
   },
   "repository": "huang2002/3h-iter",
   "keywords": [
@@ -34,6 +35,7 @@
     "@types/node": "^20.5.9",
     "3h-test": "^0.10.0",
     "dts2md": "^0.4.0",
+    "npm-run-all": "^4.1.5",
     "rollup": "^3.28.1",
     "terser": "^5.2.1",
     "typescript": "^5.2.2"
