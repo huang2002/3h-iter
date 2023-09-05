@@ -1,6 +1,6 @@
 {
   "name": "3h-iter",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "An iteration lib.",
   "module": "./dist/3h-iter.min.js",
   "main": "./dist/3h-iter.umd.min.js",
