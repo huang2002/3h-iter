@@ -30,4 +30,8 @@ module.exports = (context) => {
         JSON.stringify([...zip([], [])]),
         JSON.stringify([])
     );
+    context.assertStrictEqual(
+        JSON.stringify([...zip([0], [1, 2], [3, 4, 5])]),
+        JSON.stringify([[0, 1, 3]])
+    );
 };

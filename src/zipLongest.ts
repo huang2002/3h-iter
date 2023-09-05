@@ -1,6 +1,7 @@
-// TODO: more than two input iterables
+import { MixinMap, ToIterables } from './common';
+
 /**
- * Create an iterable object that yields pairs of values from
+ * Create an iterable object that yields tuples of values from
  * the given iterable objects and stops when the longest one stops.
  * @example
  * ```js
@@ -8,70 +9,78 @@
  * // -> [[0, 'a'], [1, 'b'], [2, '-']]
  * ```
  */
-export const zipLongest = <T>(
-    iterableA: Iterable<T>,
-    iterableB: Iterable<T>,
-    fillValue: T,
+export const zipLongest = <T extends readonly unknown[], TFill>(
+    iterables: ToIterables<T>,
+    fillValue: TFill,
 ) => (
-    new ZipLongest(iterableA, iterableB, fillValue)
+    new ZipLongest<T, TFill>(iterables, fillValue)
 );
 /** dts2md break */
 /**
- * An iterable object that yields pairs of values from
+ * An iterable object that yields tuples of values from
  * the given iterable objects and stops when the longest one stops.
  */
-export class ZipLongest<T> implements Iterable<readonly [T, T]> {
+export class ZipLongest<T extends readonly unknown[], TFill> implements Iterable<MixinMap<T, TFill>> {
     /**
      * Constructor of {@link ZipLongest}.
      */
     constructor(
-        iterableA: Iterable<T>,
-        iterableB: Iterable<T>,
-        fillValue: T,
+        iterables: ToIterables<T>,
+        fillValue: TFill,
     ) {
-        this.iterableA = iterableA;
-        this.iterableB = iterableB;
+        this.iterables = iterables;
         this.fillValue = fillValue;
     }
     /**
      * First iterable.
      */
-    readonly iterableA: Iterable<T>;
-    /**
-     * Second iterable.
-     */
-    readonly iterableB: Iterable<T>;
+    readonly iterables: ToIterables<T>;
     /**
      * The value that is used as placeholders
      * for early-stopped iterables.
      */
-    readonly fillValue: T;
+    readonly fillValue: TFill;
     /**
      * Iterator factory.
      */
-    [Symbol.iterator](): Iterator<readonly [T, T]> {
-        const { iterableA, iterableB, fillValue } = this;
-        const iteratorA = iterableA[Symbol.iterator]();
-        const iteratorB = iterableB[Symbol.iterator]();
+    [Symbol.iterator](): Iterator<MixinMap<T, TFill>> {
+
+        const { fillValue } = this;
+        const iterators = this.iterables.map(
+            (iterable) => (
+                iterable[Symbol.iterator]()
+            )
+        );
+
         return {
             next() {
-                const currentA = iteratorA.next();
-                const currentB = iteratorB.next();
-                if (currentA.done) {
-                    if (currentB.done) {
-                        return { done: true, value: undefined } as const;
+
+                const values = [] as unknown[];
+                let done = true;
+
+                for (const iterator of iterators) {
+                    const current = iterator.next();
+                    if (current.done) {
+                        values.push(fillValue);
                     } else {
-                        return { value: [fillValue, currentB.value] as const };
-                    }
-                } else {
-                    if (currentB.done) {
-                        return { value: [currentA.value, fillValue] as const };
-                    } else {
-                        return { value: [currentA.value, currentB.value] as const };
+                        done = false;
+                        values.push(current.value);
                     }
                 }
-            }
+
+                if (done) {
+                    return { done: true, value: undefined };
+                } else {
+                    return {
+                        value: (
+                            values as readonly unknown[] as MixinMap<T, TFill>
+                        ),
+                    };
+                }
+
+            },
         };
+
     }
 
 }

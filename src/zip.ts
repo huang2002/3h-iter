@@ -1,6 +1,7 @@
-// TODO: more than two input iterables
+import { ToIterables } from './common';
+
 /**
- * Create an iterable object that yields pairs of values from
+ * Create an iterable object that yields tuples of values from
  * the given iterable objects and stops when the shortest one stops.
  * @example
  * ```js
@@ -8,56 +9,57 @@
  * // -> [[0, 'a'], [1, 'b'], [2, 'c']]
  * ```
  */
-export const zip = <T, U>(
-    iterableA: Iterable<T>,
-    iterableB: Iterable<U>,
+export const zip = <T extends readonly unknown[]>(
+    ...iterables: ToIterables<T>
 ) => (
-    new Zip(iterableA, iterableB)
+    new Zip<T>(...iterables)
 );
 /** dts2md break */
 /**
- * An iterable object that yields pairs of values from
+ * An iterable object that yields tuples of values from
  * the given iterable objects and stops when the shortest one stops.
  */
-export class Zip<T, U> implements Iterable<readonly [T, U]> {
+export class Zip<T extends readonly unknown[]> implements Iterable<T> {
     /**
      * Constructor of {@link Zip}.
      */
-    constructor(
-        iterableA: Iterable<T>,
-        iterableB: Iterable<U>,
-    ) {
-        this.iterableA = iterableA;
-        this.iterableB = iterableB;
+    constructor(...iterables: ToIterables<T>) {
+        this.iterables = iterables;
     }
     /**
      * First iterable.
      */
-    readonly iterableA: Iterable<T>;
-    /**
-     * Second iterable.
-     */
-    readonly iterableB: Iterable<U>;
+    readonly iterables: ToIterables<T>;
     /**
      * Iterator factory.
      */
-    [Symbol.iterator](): Iterator<readonly [T, U]> {
-        const { iterableA, iterableB } = this;
-        const iteratorA = iterableA[Symbol.iterator]();
-        const iteratorB = iterableB[Symbol.iterator]();
+    [Symbol.iterator](): Iterator<T> {
+
+        const iterators = this.iterables.map(
+            (iterable) => (
+                iterable[Symbol.iterator]()
+            )
+        );
+
         return {
             next() {
-                const currentA = iteratorA.next();
-                if (currentA.done) {
-                    return { done: true, value: undefined } as const;
+
+                const values = [] as unknown[];
+
+                for (const iterator of iterators) {
+                    const current = iterator.next();
+                    if (current.done) {
+                        return { done: true, value: undefined } as const;
+                    } else {
+                        values.push(current.value);
+                    }
                 }
-                const currentB = iteratorB.next();
-                if (currentB.done) {
-                    return { done: true, value: undefined } as const;
-                }
-                return { value: [currentA.value, currentB.value] as const };
-            }
+
+                return { value: values as readonly unknown[] as T };
+
+            },
         };
+
     }
 
 }
