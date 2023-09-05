@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+- Refactor `zip` & `zipLongest` to support multiple iterable inputs.
+- Add next arg support to `iter2fn` & `fn2iter`.
+- Improve test scripts.
+- Update deps.
+
 ## 0.5.0
 
 - Add type check to test scripts.
