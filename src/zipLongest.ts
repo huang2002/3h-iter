@@ -1,7 +1,7 @@
+// TODO: more than two input iterables
 /**
- * Similar to `zip`, but continues yield value pairs after
- * the shorter iterable object stops and uses `fillValue`
- * as placeholders
+ * Create an iterable object that yields pairs of values from
+ * the given iterable objects and stops when the longest one stops.
  * @example
  * ```js
  * [...Iter.zipLongest([0, 1, 2], 'ab', '-')]
@@ -9,27 +9,54 @@
  * ```
  */
 export const zipLongest = <T>(
-    a: Iterable<T>,
-    b: Iterable<T>,
+    iterableA: Iterable<T>,
+    iterableB: Iterable<T>,
     fillValue: T,
-) => new ZipLongest(a, b, fillValue);
+) => (
+    new ZipLongest(iterableA, iterableB, fillValue)
+);
 /** dts2md break */
+/**
+ * An iterable object that yields pairs of values from
+ * the given iterable objects and stops when the longest one stops.
+ */
 export class ZipLongest<T> implements Iterable<readonly [T, T]> {
-
+    /**
+     * Constructor of {@link ZipLongest}.
+     */
     constructor(
-        readonly a: Iterable<T>,
-        readonly b: Iterable<T>,
-        readonly fillValue: T,
-    ) { }
-
+        iterableA: Iterable<T>,
+        iterableB: Iterable<T>,
+        fillValue: T,
+    ) {
+        this.iterableA = iterableA;
+        this.iterableB = iterableB;
+        this.fillValue = fillValue;
+    }
+    /**
+     * First iterable.
+     */
+    readonly iterableA: Iterable<T>;
+    /**
+     * Second iterable.
+     */
+    readonly iterableB: Iterable<T>;
+    /**
+     * The value that is used as placeholders
+     * for early-stopped iterables.
+     */
+    readonly fillValue: T;
+    /**
+     * Iterator factory.
+     */
     [Symbol.iterator](): Iterator<readonly [T, T]> {
-        const { a, b, fillValue } = this;
-        const aIterator = a[Symbol.iterator]();
-        const bIterator = b[Symbol.iterator]();
+        const { iterableA, iterableB, fillValue } = this;
+        const iteratorA = iterableA[Symbol.iterator]();
+        const iteratorB = iterableB[Symbol.iterator]();
         return {
             next() {
-                const currentA = aIterator.next();
-                const currentB = bIterator.next();
+                const currentA = iteratorA.next();
+                const currentB = iteratorB.next();
                 if (currentA.done) {
                     if (currentB.done) {
                         return { done: true, value: undefined } as const;

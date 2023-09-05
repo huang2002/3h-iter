@@ -1,6 +1,7 @@
+// TODO: more than two input iterables
 /**
  * Create an iterable object that yields pairs of values from
- * the given two iterable objects (stops when the shorter one stops)
+ * the given iterable objects and stops when the shortest one stops.
  * @example
  * ```js
  * [...Iter.zip([0, 1, 2], 'abc')]
@@ -8,28 +9,49 @@
  * ```
  */
 export const zip = <T, U>(
-    a: Iterable<T>,
-    b: Iterable<U>,
-) => new Zip(a, b);
+    iterableA: Iterable<T>,
+    iterableB: Iterable<U>,
+) => (
+    new Zip(iterableA, iterableB)
+);
 /** dts2md break */
+/**
+ * An iterable object that yields pairs of values from
+ * the given iterable objects and stops when the shortest one stops.
+ */
 export class Zip<T, U> implements Iterable<readonly [T, U]> {
-
+    /**
+     * Constructor of {@link Zip}.
+     */
     constructor(
-        readonly a: Iterable<T>,
-        readonly b: Iterable<U>,
-    ) { }
-
+        iterableA: Iterable<T>,
+        iterableB: Iterable<U>,
+    ) {
+        this.iterableA = iterableA;
+        this.iterableB = iterableB;
+    }
+    /**
+     * First iterable.
+     */
+    readonly iterableA: Iterable<T>;
+    /**
+     * Second iterable.
+     */
+    readonly iterableB: Iterable<U>;
+    /**
+     * Iterator factory.
+     */
     [Symbol.iterator](): Iterator<readonly [T, U]> {
-        const { a, b } = this;
-        const aIterator = a[Symbol.iterator]();
-        const bIterator = b[Symbol.iterator]();
+        const { iterableA, iterableB } = this;
+        const iteratorA = iterableA[Symbol.iterator]();
+        const iteratorB = iterableB[Symbol.iterator]();
         return {
             next() {
-                const currentA = aIterator.next();
+                const currentA = iteratorA.next();
                 if (currentA.done) {
                     return { done: true, value: undefined } as const;
                 }
-                const currentB = bIterator.next();
+                const currentB = iteratorB.next();
                 if (currentB.done) {
                     return { done: true, value: undefined } as const;
                 }

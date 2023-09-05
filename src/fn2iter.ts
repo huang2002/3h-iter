@@ -1,15 +1,15 @@
 /**
  * Create an iterable object that contains the value from
  * the given function; iteration is done when the function
- * returns specific stop value
+ * returns specific stop value.
  */
 export const fn2iter = <T, U>(fn: () => T | U, stopValue: U): Iterable<T> => ({
-    [Symbol.iterator]() {
+    [Symbol.iterator](): Iterator<T, undefined, undefined> {
         return {
             next() {
                 const value = fn();
                 return (
-                    value === stopValue
+                    (value === stopValue)
                         ? { done: true, value: undefined } as const
                         : { value: value as T }
                 );

@@ -1,6 +1,6 @@
 /**
  * Get a new iterable object that filters the given data
- * according to the selectors
+ * according to the selectors.
  * @example
  * ```js
  * [...Iter.compress([0, 1, 2], [true, false, true])]
@@ -10,16 +10,37 @@
 export const compress = <T>(
     data: Iterable<T>,
     selectors: Iterable<boolean>,
-) => new Compress(data, selectors);
+) => (
+    new Compress(data, selectors)
+);
 /** dts2md break */
+/**
+ * An iterable object that filters the given data
+ * according to the selectors.
+ */
 export class Compress<T> implements Iterable<T> {
-
+    /**
+     * Constructor of {@link Compress}.
+     */
     constructor(
-        readonly data: Iterable<T>,
-        readonly selectors: Iterable<boolean>,
-    ) { }
-
-    [Symbol.iterator](): Iterator<T> {
+        data: Iterable<T>,
+        selectors: Iterable<boolean>,
+    ) {
+        this.data = data;
+        this.selectors = selectors;
+    }
+    /**
+     * Original iterable.
+     */
+    readonly data: Iterable<T>;
+    /**
+     * Selector iterable.
+     */
+    readonly selectors: Iterable<boolean>;
+    /**
+     * Iterator factory.
+     */
+    [Symbol.iterator](): Iterator<T, undefined, undefined> {
         const { data, selectors } = this;
         const dataIterator = data[Symbol.iterator]();
         const selectorIterator = selectors[Symbol.iterator]();

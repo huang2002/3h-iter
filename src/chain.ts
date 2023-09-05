@@ -1,22 +1,33 @@
 /**
- * Create a new iterable object that concats the given ones
+ * Create a new iterable object that concats the given ones.
  * @example
  * ```js
  * [...Iter.chain([0, 1], [2, 3])]
  * // -> [0, 1, 2, 3]
  * ```
  */
-export const chain = <T>(...iterables: Iterable<T>[]) => new Chain(...iterables);
+export const chain = <T>(...iterables: readonly Iterable<T>[]) => (
+    new Chain(...iterables)
+);
 /** dts2md break */
+/**
+ * An iterable object that concats the given ones.
+ */
 export class Chain<T> implements Iterable<T> {
-
-    constructor(...iterables: Iterable<T>[]) {
+    /**
+     * Constructor of {@link Chain}.
+     */
+    constructor(...iterables: readonly Iterable<T>[]) {
         this.iterables = iterables;
     }
-
-    readonly iterables: Iterable<T>[];
-
-    [Symbol.iterator](): Iterator<T> {
+    /**
+     * Received iterables.
+     */
+    readonly iterables: readonly Iterable<T>[];
+    /**
+     * Iterator factory.
+     */
+    [Symbol.iterator](): Iterator<T, undefined, undefined> {
         const candidates = this.iterables.slice();
         if (!candidates.length) { // nothing to iterate
             return {
