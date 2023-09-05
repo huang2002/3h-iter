@@ -15,7 +15,13 @@ module.exports = (context) => {
     context.assertStrictEqual(fn1(), null);
     context.assertStrictEqual(fn1(), null);
 
+    /**
+     * @returns {Generator<number, undefined, any>}
+     */
     function* generator() {
+        /**
+         * @type {number}
+         */
         let value = yield 0;
         while (value < 5) {
             value = yield (value + 1);
