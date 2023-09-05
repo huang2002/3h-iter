@@ -24,8 +24,8 @@ module.exports = (context) => {
         []
     );
     context.expectThrow(
-        slice,
         RangeError,
+        slice,
         [array, 0, -1]
     );
 };

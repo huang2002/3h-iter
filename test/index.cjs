@@ -12,7 +12,13 @@ const iter2fnTest = require('./iter2fn.cjs');
 const fn2iterTest = require('./fn2iter.cjs');
 const repeatTest = require('./repeat.cjs');
 
-test(null, {
+test({
+    include: (
+        (process.argv.length > 2)
+            ? process.argv.slice(2)
+            : undefined
+    ),
+}, {
     range: rangeTest,
     chain: chainTest,
     compress: compressTest,

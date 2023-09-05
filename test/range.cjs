@@ -56,33 +56,33 @@ module.exports = (context) => {
     );
 
     context.expectThrow(
-        range,
         RangeError,
+        range,
         [Infinity, 5]
     );
     context.expectThrow(
-        range,
         RangeError,
+        range,
         [0, 5, -1]
     );
     context.expectThrow(
-        range,
         RangeError,
+        range,
         [0, Infinity, -1]
     );
     context.expectThrow(
-        range,
         RangeError,
+        range,
         [0, -Infinity, 1]
     );
     context.expectThrow(
-        range,
         RangeError,
+        range,
         [5, 0, 1]
     );
     context.expectThrow(
-        range,
         RangeError,
+        range,
         [0, 5, 0]
     );
 
