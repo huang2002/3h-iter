@@ -19,4 +19,5 @@ test({
     iter2fn: require('./iter2fn.cjs'),
     fn2iter: require('./fn2iter.cjs'),
     repeat: require('./repeat.cjs'),
+    enumerate: require('./enumerate.cjs'),
 });

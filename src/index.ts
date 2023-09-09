@@ -9,3 +9,4 @@ export * from './slice';
 export * from './iter2fn';
 export * from './fn2iter';
 export * from './repeat';
+export * from './enumerate';
