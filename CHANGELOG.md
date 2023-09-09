@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0
+
+- Add `enumerate`.
+
 ## 0.6.0
 
 - Refactor `zip` & `zipLongest` to support multiple iterable inputs.
