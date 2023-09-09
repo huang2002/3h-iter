@@ -20,4 +20,5 @@ test({
     fn2iter: require('./fn2iter.cjs'),
     repeat: require('./repeat.cjs'),
     enumerate: require('./enumerate.cjs'),
+    count: require('./count.cjs'),
 });
