@@ -11,3 +11,5 @@ export * from './fn2iter';
 export * from './repeat';
 export * from './enumerate';
 export * from './count';
+export * from './some';
+export * from './every';
