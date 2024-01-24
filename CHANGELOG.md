@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+- Fix typing exports.
+
 ## 0.8.0
 
 - Standardize entrypoint definitions.
