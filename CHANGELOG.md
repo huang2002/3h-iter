@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+- Standardize entrypoint definitions.
+
 ## 0.7.0
 
 - Add `enumerate`.
