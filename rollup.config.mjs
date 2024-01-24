@@ -1,4 +1,4 @@
-import rollupPluginBabel from "@rollup/plugin-babel";
+import rollupPluginBabel from '@rollup/plugin-babel';
 
 const input = './js/index.js';
 
@@ -8,19 +8,19 @@ export default [
         plugins: [
             rollupPluginBabel({
                 babelHelpers: 'bundled',
-            })
+            }),
         ],
         output: {
             format: 'umd',
             name: 'Iter',
-            file: './dist/3h-iter.umd.js'
-        }
+            file: './dist/3h-iter.umd.js',
+        },
     },
     {
         input,
         output: {
             format: 'esm',
-            file: './dist/3h-iter.js'
-        }
-    }
+            file: './dist/3h-iter.mjs',
+        },
+    },
 ];
